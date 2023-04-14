@@ -2,10 +2,13 @@ import { ethers, upgrades } from "hardhat";
 //import '@openzeppelin/hardhat-upgrades';
 
 async function main() {
+  // TOKEN:
   // Upgradable first time deploy
+  /*
   const Contract = await ethers.getContractFactory("SimpleToken");
   const contract = await upgrades.deployProxy(Contract, ["Resolv coin", "RSLV1", "10000000000000000000000"], { initializer: 'initialize' });
   await contract.deployed();
+  */
 
   /*
   // Non upgradable deploy
@@ -14,6 +17,11 @@ async function main() {
 
   await contract.deployed();
   */
+
+  // Manager:
+  const Contract = await ethers.getContractFactory("ExternalRequestsManager");
+  const contract = await upgrades.deployProxy(Contract, ["TOKEN_ADDRESS"], { initializer: 'initialize' });
+  await contract.deployed();
 
   console.log(
     `Deployed to ${contract.address}`
